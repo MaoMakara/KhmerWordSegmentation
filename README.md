@@ -1,10 +1,7 @@
-# KhmerWordSegmentation(NLP)
+# Khmer Word Segmentation(Python)
 
-### Problem
-Unlike other languages, Khmer Word Segmentation is way more complected. Because the Khmer language does not have any standard rule on how we are using space to separate between each word(space are used for easier reading). Moreover, Khmer word can have different meaning with the order of words when it will form. Khmer word could also be a join of two or more Khmer words together.
+### Requriment tool and How to set up
 
-
-Because of uncertain rule of spacing and the complicated structure above, which it is hard to segment Khmer Word.
 
 ### Why we build it?
 
