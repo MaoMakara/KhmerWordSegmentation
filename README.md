@@ -1,6 +1,15 @@
 # Khmer Word Segmentation(Python)
 
-### Requriment tool and How to set up
+### Requirement tool and How to set up
+ 
+  - Install Jupyter Notebook
+   - https://jupyter.org/
+     - pip3 install jupyterlab
+     - python3 -m pip install --upgrade pip
+     - python3 -m pip install jupyter
+     - python -m pip install --upgrade pip
+     - python -m pip install jupyter
+     - jupyter notebook
 
 
 ### Why we build it?
