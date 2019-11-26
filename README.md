@@ -10,6 +10,15 @@
      - python -m pip install --upgrade pip
      - python -m pip install jupyter
      - jupyter notebook
+  - Clikc clone or download
+     - Downlone ZIP
+ How to RUN?
+ 
+  - Open command prompt
+   - Typing : jupyter notebook
+   - Brow to directory on your project
+   - Select on file name ('Trie.ipynb')
+   - Click Run
 
 
 ### Why we build it?
