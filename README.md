@@ -10,7 +10,7 @@
      - python -m pip install --upgrade pip
      - python -m pip install jupyter
      - jupyter notebook
-  - Clik clone or download
+  - Click clone or download
      - Downlone ZIP
  How to RUN?
  
