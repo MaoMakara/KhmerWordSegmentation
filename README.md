@@ -32,7 +32,7 @@ Ref:
 
 - https://github.com/silnrsi/khmerlbdict
 
-### Plan
+### Features Plan
 
 
 <!--
