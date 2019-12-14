@@ -2,7 +2,7 @@
 
 ### Requirement tool and How to set up
  
-  - Install Jupyter Notebook
+  - First of all,install Jupyter Notebook
    - https://jupyter.org/
      - pip3 install jupyterlab
      - python3 -m pip install --upgrade pip
