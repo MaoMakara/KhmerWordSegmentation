@@ -22,7 +22,7 @@
 ### How to Execute on cloud?
    - Opne this website https://nbviewer.jupyter.org/
    - Copy link from GitHub https://github.com/MaoMakara/KhmerWordSegementation
-   - Past on ### nbviewer
+   - Past on nbviewer
    - Click Go
    - Click Execute on Binder
    - Wait afew minute...
