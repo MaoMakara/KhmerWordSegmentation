@@ -1,4 +1,4 @@
-# Khmer Word Segmentation(Python)
+# Open library of Khmer Word Segmentation(Python)
 
 ### Requirement tool and How to set up
  
