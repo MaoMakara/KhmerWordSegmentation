@@ -17,7 +17,7 @@
   - Open command prompt
    - Typing : jupyter notebook
    - Brow to directory on your project
-   - Select on file name ('Trie.ipynb')
+   - Select on file name ('Word_segmentation.ipynb')
    - Click Run
 
 
