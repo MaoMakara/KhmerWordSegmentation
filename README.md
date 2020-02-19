@@ -19,7 +19,14 @@
    - Brow to directory on your project
    - Select on file name ('Word_segmentation.ipynb')
    - Click Run
-
+### How to Execute on cloud?
+   - Opne this website https://nbviewer.jupyter.org/
+   - Copy link from GitHub https://github.com/MaoMakara/KhmerWordSegementation
+   - Past on ### nbviewer
+   - Click Go
+   - Click Execute on Binder
+   - Wait afew minute...
+   - Click Word_segmentation.ipynb
 
 ### Why we build it?
 
