@@ -27,7 +27,7 @@
    - Click Execute on Binder
    - Wait afew minute...
    - Click Word_segmentation.ipynb
-![alt text](https://github.com/MaoMakara/KhmerWordSegementation/branch/master/images/Word Segmentation.JPG)
+![alt text](https://github.com/MaoMakara/KhmerWordSegementation/blob/master/images/Word%20Segmentation.JPG)
 ### Why we build it?
 
 
