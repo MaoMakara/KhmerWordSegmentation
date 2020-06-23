@@ -11,7 +11,7 @@
      - python -m pip install jupyter
      - jupyter notebook
   - Click button clone or download
-     - Downlone ZIP
+     - Download ZIP
  How to RUN?
  
   - Open command prompt
