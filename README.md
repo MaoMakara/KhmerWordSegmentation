@@ -39,7 +39,14 @@ Ref:
 
 - https://github.com/silnrsi/khmerlbdict
 
+### Publication
+- Journal of Information Processing Systems (JIPS) : 
+- Link: http://jips-k.org/digital-library/2022/18/4/549
+- Publication Date: 2022/08/01
+
 ### Features Plan
+
+
 
 
 <!--
