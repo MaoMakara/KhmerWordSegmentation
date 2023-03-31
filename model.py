@@ -1,7 +1,7 @@
 import trie
 model=trie.Trie()
-input_file_path = "data/khmerwords.txt"
-with open(input_file_path, "r",encoding="utf8") as f:
+input_file_path = "data/khmerwords.csv"
+with open(input_file_path, "r",encoding="'utf-8-sig") as f:
   words = f.read().split("\n")
   f.close()
 #print("Training Words ...")

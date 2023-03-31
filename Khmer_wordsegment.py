@@ -1,114 +1,156 @@
 import trie
+import csv
 import model
-
+import os
+import re
 class AngkorSegmentation:
-# init Class_Function class
-  def __init__(self, text):
-    self.text = text#.decode('utf-8')
-    self.model = trie.Trie()
-    self.model.load_from_pickle("train_data_set")
-    self.result = []
-    self.result_all = []
-    self.leftover = []
-    self.startIndex = 0
+    # init Class_Function class
+    def __init__(self, text):
+        self.text = text
+        self.model = trie.Trie()
+        self.model.load_from_pickle("train_data_set")
+        self.result = []
+        self.result_all = []
+        self.leftover = []
+        self.startIndex = 0
 
-  def isNumber(self, ch):
-    # number letter
-    return ch in "0123456789០១២៣៤៥៦៧៨៩"
+    def isNumber(self, ch):
+        # number letter
+        return ch in "0123456789០១២៣៤៥៦៧៨៩"
 
-  def parseNumber(self, index):
-    result = ""
-    while (index < len(self.text)):
-      ch = self.text[index]
-      ch = ch#.encode('utf-8')
-      if self.isNumber(ch):
-        result += self.text[index]
-        index += 1
-      else:
+    def parseNumber(self, index):
+        result = ""
+        while (index < len(self.text)):
+            ch = self.text[index]
+            if self.isNumber(ch):
+                result += ch
+                index += 1
+            else:
+                return result
         return result
 
-    return result
-  def isEnglish(self, ch):
-    return ch in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    def isEnglish(self, ch):
+        return ch in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-  def parseEnglish(self, index):
-    result = ""
-    while (index < len(self.text)):
-      ch = self.text[index]
-      ch = ch#.encode('utf-8')
-      if (self.isEnglish(ch) or self.isNumber(ch)):
-        result += ch;
-        index += 1
-      else:
+    def parseEnglish(self, index):
+        result = ""
+        while (index < len(self.text)):
+            ch = self.text[index]
+            if (self.isEnglish(ch) or self.isNumber(ch)):
+                result += ch
+                index += 1
+            else:
+                return result
         return result
-    return result
 
-  def parseTrie(self, index):
-    word = ''
-    foundWord = ''
+    def parseTrie(self, index):
+        word = ''
+        foundWord = ''
 
-    while (index < len(self.text)):
-      ch = self.text[index]
-      ch = ch#.encode('utf-8')
-      word += ch
-      if self.model.searchWordPrefix(word):
-        if self.model.searchWord(word):
-          foundWord = word
-      elif self.model.searchWord(word):
-        return word
-      else:
-        return foundWord;
+        while (index < len(self.text)):
+            ch = self.text[index]
+            word += ch
+            if self.model.searchWordPrefix(word):
+                if self.model.searchWord(word):
+                    foundWord = word
+            elif self.model.searchWord(word):
+                return word
+            else:
+                return foundWord
 
-      index += 1
+            index += 1
 
-    return ""
+        return ""
 
-  def check_words(self):
-    temp = ""
-    while(self.startIndex < len(self.text)):
-      ch = self.text[self.startIndex]
-      ch = ch#.encode('utf-8')
-      word = ''
+    def check_words(self):
+        # Read existing words from CSV file and store them in a list
+        existing_words = []
+        with open('segmented_text.csv', 'r', encoding='utf-8-sig', newline='') as f:
+            reader = csv.reader(f)
+            next(reader)  # skip the header row
+            for row in reader:
+                existing_words.append(row[0])
 
-      if self.isNumber(ch):
-        word = self.parseNumber(self.startIndex)#.encode('utf-8')
-      elif self.isEnglish(ch):
-        word = self.parseEnglish(self.startIndex)#.encode('utf-8')
-      else:
-        word = self.parseTrie(self.startIndex)
+        # Define a regular expression pattern for Khmer characters
+        khmer_pattern = re.compile(r'[\u1780-\u17FF]+')
+        temp = ""
+        while(self.startIndex < len(self.text)):
+            ch = self.text[self.startIndex]
+            word = ''
 
-      length = len(word)#.decode('utf-8'))
-      if length == 0:
-        temp += ch
-#         self.result_all.append(ch)#.decode('utf-8'))
-        self.startIndex += 1
-        if self.startIndex >= len(self.text):
-            self.result_all.append(temp)
-            temp = ""
-        continue
-        if len(temp) > 0:
-            self.resulf_all.append(temp)
-            temp = ""
+            if self.isNumber(ch):
+                word = self.parseNumber(self.startIndex)
+            elif self.isEnglish(ch):
+                word = self.parseEnglish(self.startIndex)
+            else:
+                word = self.parseTrie(self.startIndex)
 
-      result = {}
-      if self.model.searchWord(word) or self.isNumber(ch) or self.isEnglish(ch):
-        #self.result_all.append()
-        result = word#.decode('utf-8')
-      else:
-        result = word#.decode('utf-8')
+            length = len(word)
+            if length == 0:
+                temp += ch
+                self.startIndex += 1
+                if self.startIndex >= len(self.text):
+                    self.result_all.append(temp)
+                    temp = ""
+                continue
+            if len(temp) > 0:
+                self.result_all.append(temp)
+                temp = ""
 
-      self.result_all.append(result)
-      self.startIndex += length
-    return(self.result_all)
-  
-  def show(self):
-    print("Original Text: " + self.text)
-    print("Segment:",self.result_all)
-    print ('ZeroSpace : [' + '​'.join(self.result_all) + ']') # add zero space
-    #print ('After check : [' +' '.join(self.result_all) + ']')
-    print("Total Words:" , len(self.result_all))
-    
-  
+            result = {}
+            if self.model.searchWord(word) or self.isNumber(ch) or self.isEnglish(ch):
+                result = word
+            else:
+                result = word
 
+            # Append new words to CSV file
+            word_str = ''.join(result)
+            if word_str.strip() and word_str not in existing_words and khmer_pattern.search(word_str):
+                with open('segmented_text.csv', 'a', encoding='utf-8-sig', newline='') as f:
+                    writer = csv.writer(f)
+                    writer.writerow([word_str])
+                    existing_words.append(word_str)
 
- 
+            self.result_all.append(result)
+            self.startIndex += length
+        return self.result_all
+
+    def segment(self, text):
+        self.result_all = []
+        # zero space
+        text = text.replace(' ', '')
+        text = text.replace('។', '។ ')
+        text = text.replace('៛', '៛ ')
+        text = text.replace('៕', '៕ ')
+        text = text.replace('ៗ', 'ៗ ')
+        for i in range(len(text)):
+            self.result_all.append(text[i])
+        return self.result_all
+
+    def show(self):
+        print("Original Text: " + self.text)
+        print("Segment:",self.result_all)
+        print ('ZeroSpace : [' + '​'.join(self.result_all) + ']')
+        print("Total Words:" , len(self.result_all))
+
+    def save_segmented_text(self, filename):
+        if not os.path.isfile(filename):
+            # file does not exist, create a new file and save the words
+            with open(filename, 'w', newline='', encoding='utf-8-sig') as csvfile:
+                writer = csv.writer(csvfile, delimiter='\t')
+                for word in self.result_all:
+                    if word != ' ':  # exclude spaces
+                        writer.writerow([word])
+        else:
+            # file already exists, open in append mode and only append new words
+            existing_words = set()
+            with open(filename, 'r', newline='', encoding='utf-8-sig') as csvfile:
+                reader = csv.reader(csvfile, delimiter='\t')
+                for row in reader:
+                    existing_words.add(row[0])
+            with open(filename, 'a', newline='', encoding='utf-8-sig') as csvfile:
+                writer = csv.writer(csvfile, delimiter='\t')
+                for word in self.result_all:
+                    if word != ' ' and word not in existing_words:  # exclude spaces and duplicates
+                        writer.writerow([word])
+                        existing_words.add(word)
