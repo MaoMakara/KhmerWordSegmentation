@@ -4,11 +4,13 @@ import model
 import os
 import re
 class AngkorSegmentation:
+    DELIMITER = '\t'
+    
     # init Class_Function class
-    def __init__(self, text):
+    def __init__(self, text, trie_model_filename="train_data_set"):
         self.text = text
         self.model = trie.Trie()
-        self.model.load_from_pickle("train_data_set")
+        self.model.load_from_pickle(trie_model_filename)
         self.result = []
         self.result_all = []
         self.leftover = []
