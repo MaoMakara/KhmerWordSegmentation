@@ -129,9 +129,25 @@ class AngkorSegmentation:
 
     def show(self):
         print("Original Text: " + self.text)
-        print("Segment:",self.result_all)
-        print ('ZeroSpace : [' + '​'.join(self.result_all) + ']')
-        print("Total Words:" , len(self.result_all))
+
+        print("Segment:", self.result_all)
+
+        print('ZeroSpace : [' + '​'.join(self.result_all) + ']')
+
+        print("Total Words:", len(self.result_all))
+
+        # Words not in segmented_text.csv
+        existing_words = set()
+        with open('segmented_text.csv', 'r', encoding='utf-8-sig', newline='') as f:
+            reader = csv.reader(f)
+            next(reader)  # skip the header row
+            for row in reader:
+                existing_words.add(row[0])
+
+        words_not_in_csv = [word for word in self.result_all if word.strip() and word not in existing_words]
+        if words_not_in_csv:
+            print("The words can not be segmented:", words_not_in_csv)
+
 
     def save_segmented_text(self, filename):
         if not os.path.isfile(filename):
